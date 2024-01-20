@@ -1,0 +1,65 @@
+.user-profile-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-top: 20px;
+  background-color: rgb(193 190 255);
+}
+
+button{
+  background-color: rgb(82, 79, 159);
+}
+button:hover{
+  background-color: rgb(82, 79, 159);
+}
+
+.profile-details {
+  background-color: rgb(193 190 255);
+  padding: 15px;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.profile-details h2 {
+  margin-bottom: 10px;
+}
+
+
+
+.profile-picture {
+  margin-top: 10px;
+}
+
+.profile-picture img {
+  width: 150px; /* Adjust the width as needed */
+  height: auto;
+  border-radius: 50%; /* Make it a circular profile picture */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+}
+
+.user-posts {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.user-post-item {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+  background-color: rgb(219 218 244);
+}
+
+.user-post-item img {
+  width: 50px;
+  max-height: 50px;
+  object-fit: contain;
+  border-radius: 0px;
+}
+
+.user-post-item p {
+  margin: 10px 0;
+}

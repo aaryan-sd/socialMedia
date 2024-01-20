@@ -1,0 +1,14 @@
+.posts-container {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  
+}
+.title-feed{
+  
+    padding-right: 300px;
+    position: sticky;
+    margin-left: 400px;
+    border: 1px solid black;
+    
+}
