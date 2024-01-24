@@ -2,7 +2,7 @@ import { v2 as cloudinary } from "cloudinary"
 import fs from "fs" // this is file system library which is by default present in node js
           
 cloudinary.config({ 
-  cloud_name: 'dfnf4rnus', 
+  cloud_name: 'dfnf4rnus',  // process.env.CLOUDINARY_CLOUD_NAME
   api_key: '256957918344689', 
   api_secret: 'BM9j44aoSqwfsp-NM4HoeIItMUE' 
 });

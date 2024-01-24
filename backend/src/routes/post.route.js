@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { upload } from "../middlewares/multer.middleware.js";
 import { verifyJWT } from "../middlewares/auth.middleware.js";
-import { createPost, deletePost, getAllPosts, getPostsOfUser } from "../controllers/post.controller.js";
+import { createPost, deletePost, getAllPosts, getPostsOfUser, likePost } from "../controllers/post.controller.js";
 
 const router = Router();
 
@@ -18,5 +18,6 @@ router.route("/create-post").post(
 router.route("/all-posts").get(getAllPosts)
 router.route("/p/:username").get(verifyJWT, getPostsOfUser)
 router.route("/:username/:postId").delete(verifyJWT, deletePost)
+router.route("/:postId").post(verifyJWT, likePost);
 
 export default router;

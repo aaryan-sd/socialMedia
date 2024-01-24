@@ -37,6 +37,7 @@ body{
     overflow: hidden;
 }
 
+
 .sidebar ul{
     position: absolute;
     top: 0;
@@ -54,6 +55,14 @@ body{
 
 .sidebar ul li:hover{
     background: var(--white);
+}
+.dark .sidebar ul li:hover{
+    background: #1c1e32;
+    color: white;
+}
+.dark .sidebar ul li a:hover{
+    
+    color: white;
 }
 
 .sidebar ul li:nth-child(1){

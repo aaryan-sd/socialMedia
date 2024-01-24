@@ -113,9 +113,43 @@ const deletePost = asyncHandler(async(req,res) => {
     )
 })
 
+const likePost = asyncHandler(async(req,res) => {
+    const { postId } = req.params;
+  const userId = req.user._id;
+
+  if(!userId){
+    throw new ApiError(404, "user not found")
+  }
+
+  // Check if the post exists
+  const post = await Post.findById(postId);
+  if (!post) {
+    throw new ApiError(404, "post not found")
+  }
+
+  // Check if the user has already liked the post
+  const indexOfUser = post.likes.indexOf(userId);
+
+  if (indexOfUser !== -1) {
+    // If the user has already liked the post, remove the like
+    post.likes.splice(indexOfUser, 1);
+  } else {
+    // If the user hasn't liked the post, add the like
+    post.likes.push(userId);
+  }
+
+  await post.save();
+
+  res.status(200)
+  .json(
+    new ApiResponse(200, indexOfUser ,"Like status updated")
+  )
+})
+
 export {
     getAllPosts,
     createPost,
     getPostsOfUser,
-    deletePost
+    deletePost,
+    likePost
 }

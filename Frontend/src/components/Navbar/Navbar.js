@@ -1,22 +1,31 @@
 import { Link } from "react-router-dom";
-import { useContext } from "react";
-import { DarkModeContext } from "../../Context/DarkModeContext";
 import { IoSunnyOutline } from "react-icons/io5";
 import { MdDarkMode, MdDisplaySettings } from "react-icons/md";
 import { FaSearch } from "react-icons/fa";
+import { FaToggleOn, FaToggleOff } from "react-icons/fa";
 import { IoPersonSharp } from "react-icons/io5";
 import { useUser } from "../../Context/UserContext"; 
 import './Navbar.css'
-
+import useTheme from "../../Context/theme";
 
 const Navbar = () => {
-  const { toggle, darkMode } = useContext(DarkModeContext);
+  const {themeMode, lightTheme, darkTheme} = useTheme()
+  
   const { user, logoutUser } = useUser();
 
   const handleLogout = async () => {
     await logoutUser();
     console.log("user logged out successfully");
   };
+
+  const onChange = () => {
+    if(themeMode === 'dark'){
+      lightTheme()
+    }
+    else{
+      darkTheme()
+    }
+  }
 
   return (
     <div className="navbar">
@@ -25,11 +34,9 @@ const Navbar = () => {
           <span>Connectify.</span>
         </Link>
 
-        {darkMode ? (
-          <IoSunnyOutline onClick={toggle} />
-        ) : (
-          <MdDarkMode onClick={toggle} />
-        )}
+        <div className="toggle-button" onClick={onChange} style={{cursor:'pointer', fontSize: '1.5rem'}}>
+          {themeMode === 'dark' ? <IoSunnyOutline /> : <MdDarkMode />}
+        </div>
 
         <div className="search">
           <FaSearch />
@@ -47,14 +54,14 @@ const Navbar = () => {
                     <button onClick={handleLogout} style={{backgroundColor:'#524f9f', marginRight:'20px'}}>Logout</button>
                 </div>
                 ) : (
-                <>
+                <div>
                     <Link to="/login">
-                    <button style={{backgroundColor:'#524f9f'}}>Login</button>
+                    <button style={{backgroundColor:'#524f9f', marginRight: '10px'}}>Login</button>
                     </Link>
                     <Link to="/register">
                     <button style={{backgroundColor:'#524f9f'}}>Sign Up</button>
                     </Link>
-                </>
+                </div>
                 )}  
             </div>
             

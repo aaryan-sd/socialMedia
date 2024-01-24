@@ -47,10 +47,10 @@ button:hover{
 }
 
 .user-post-item {
-  border: 1px solid #ccc;
-  padding: 10px;
-  text-align: center;
-  background-color: rgb(219 218 244);
+  border: 2px solid #7053b6;
+    padding: 10px;
+    text-align: center;
+    background-color: rgb(193 190 255);
 }
 
 .user-post-item img {

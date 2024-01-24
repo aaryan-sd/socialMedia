@@ -1,3 +1,5 @@
+import React, { useContext, useEffect, useState } from 'react';
+import './App.css'; 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from "./components/Home/Home"
 import Login from './components/Login/Login';
@@ -6,28 +8,42 @@ import CreateNewPost from './components/CreatePost/CreateNewPost';
 import UserProfile from './components/UserProfile/UserProfile';
 import MyProfile from './components/MyProfile/MyProfile';
 import { UserProvider } from './Context/UserContext';
-import { DarkModeContextProvider } from './Context/DarkModeContext';
+import { ThemeProvider } from './Context/theme';
 
-function App() {
+const App = () => {
+  const [themeMode, setThemeMode] = useState('light');
+
+  const darkTheme = () => {
+    setThemeMode('dark')
+  }
+
+  const lightTheme = () => {
+    setThemeMode('light')
+  }
+
+  useEffect(()=> {
+    document.querySelector('html').classList.remove('dark','light')
+    document.querySelector('html').classList.add(themeMode)
+    console.log(themeMode)
+  }, [themeMode])
+
   return (
-    <DarkModeContextProvider>
-    <UserProvider>
-      <Router>
-        <div>
-      
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/createpost" element={<CreateNewPost />} />
-            <Route path="/userprofile/:username" element={<UserProfile />} />
-            <Route path="/myprofile/:username" element={<MyProfile />} />
-            
-          </Routes>
-        </div>
-      </Router>
-    </UserProvider>
-    </DarkModeContextProvider>
+    <ThemeProvider value={{themeMode, lightTheme, darkTheme}}>
+      <UserProvider>
+        <Router>
+          <div>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/createpost" element={<CreateNewPost />} />
+              <Route path="/userprofile/:username" element={<UserProfile />} />
+              <Route path="/myprofile/:username" element={<MyProfile />} />
+            </Routes>
+          </div>
+        </Router>
+      </UserProvider>
+    </ThemeProvider>
   );
 }
 

@@ -70,12 +70,8 @@ const Register = () => {
     <div className="register">
       <div className="card">
         <div className="left">
-          <h1>Lama Social.</h1>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero cum,
-            alias totam numquam ipsa exercitationem dignissimos, error nam,
-            consequatur.
-          </p>
+          <h2>Connectify.</h2>
+          
           <span>Do you have an account?</span>
           <Link to="/login">
           <button>Login</button>
@@ -120,14 +116,18 @@ const Register = () => {
             onChange={handleChange}
             required
           />
-            <input
-            type="file"
-            id="profilepicture"
-            name="profilepicture"
-            onChange={handleChange}
-            accept=".jpg, .jpeg, .png"
-            required
-          />
+            <label htmlFor="profilepicture" className="file-input-label">
+              <p>Choose a profile picture</p>
+              <input
+                type="file"
+                id="profilepicture"
+                name="profilepicture"
+                onChange={handleChange}
+                accept=".jpg, .jpeg, .png"
+                
+                required
+              />
+            </label>
             <button onClick={handleSubmit}>Register</button>
           </form>
         </div>

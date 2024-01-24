@@ -48,7 +48,7 @@ const Posts = () => {
     <div className="posts-container">
       {posts.map((post) => (
         <Post
-          key={post._id}
+          postid={post._id}
           username={post.postuploader.username}
           profilepicture={post.userProfilePicture}
           images={post.images}

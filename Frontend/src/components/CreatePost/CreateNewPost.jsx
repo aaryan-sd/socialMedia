@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './CreateNewPost.css'; 
@@ -8,6 +8,8 @@ import { MdAddPhotoAlternate } from "react-icons/md";
 
 const CreateNewPost = () => {
   const navigate = useNavigate();
+  const fileInputRef = useRef(null);
+
   const [formData, setFormData] = useState({
     images: null,
     caption: '',
@@ -21,6 +23,12 @@ const CreateNewPost = () => {
       ...prevData,
       [name]: newValue,
     }));
+  };
+
+  const handleFileButtonClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -71,17 +79,21 @@ const CreateNewPost = () => {
 
     <button onClick={handleGoBack}><IoChevronBack /></button>
 
-      <h1 style={{textAlign:'center'}}>Create New Post</h1>
+      <h1 style={{textAlign:'center'}}>New Post</h1>
       <form onSubmit={handleSubmit} >
-        <div className="form-group" style={{display:'flex', paddingTop:'30px'}}>
-          <label htmlFor="images"><MdAddPhotoAlternate style={{fontSize:'50px'}}/></label>
+        <div className="form-group" style={{display:'flex', paddingTop:'30px',justifyContent: 'center', alignItems: 'center'}}>
+          <label htmlFor="images" onClick={handleFileButtonClick}>
+            <MdAddPhotoAlternate style={{ fontSize: '50px', cursor: 'pointer' }} />
+          </label>
           <input
             type="file"
             id="images"
             name="images"
+            ref={fileInputRef}
             onChange={handleChange}
             accept=".jpg, .jpeg, .png"
             required
+            style={{ display: 'none' }}
           />
         </div>
         <div className="form-group">
