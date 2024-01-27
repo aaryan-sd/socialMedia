@@ -4,6 +4,21 @@
   gap: 50px;
   
 }
+
+@media screen and (max-width: 500px) {
+  .posts-container {
+      margin-left: -375px;
+      margin-right: 10px;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .posts-container {
+      
+      margin-right: 10px;
+  }
+}
+
 .title-feed{
   
     padding-right: 300px;

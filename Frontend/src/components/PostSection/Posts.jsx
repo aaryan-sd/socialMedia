@@ -22,16 +22,15 @@ const Posts = () => {
       try {
         const response = await axios.get('http://localhost:8000/api/v1/posts/all-posts');
         const fetchedPosts = response.data.data; // Assuming the posts are in the 'data' property
-        console.log(fetchedPosts);
 
-        // Fetch user profiles for each post
+        // Fetch user profiles and comments for each post
         const updatedPosts = await Promise.all(
           fetchedPosts.map(async (post) => {
-            console.log("username: ", post.postuploader.username);
             const userData = await fetchUserData(post.postuploader.username);
-            console.log("userData: ", userData);
-            console.log("userData.profilepicture: ", userData.profilepicture);
-            return { ...post, userProfilePicture: userData.profilepicture };
+            const commentsResponse = await axios.get(`http://localhost:8000/api/v1/comments/${post._id}`);
+            const comments = commentsResponse.data.data;
+            console.log("commentsResponse: ", commentsResponse)
+            return { ...post, userProfilePicture: userData.profilepicture, comments };
           })
         );
 
@@ -44,18 +43,34 @@ const Posts = () => {
     fetchPosts();
   }, []);
 
+  const updateComments = (postId, newComment) => {
+    const updatedPosts = posts.map(post => {
+      if (post._id === postId) {
+        return {
+          ...post,
+          comments: [...post.comments, newComment]
+        };
+      }
+      return post;
+    });
+    setPosts(updatedPosts);
+  };
+
   return (
     <div className="posts-container">
       {posts.map((post) => (
         <Post
+          key={post._id}
           postid={post._id}
           username={post.postuploader.username}
           profilepicture={post.userProfilePicture}
           images={post.images}
           caption={post.caption}
           likes={post.likes.length}
-          comments={post.comments.length}
+          commentcount={post.comments.length}
           createdAt={post.createdAt}
+          comments={post.comments} 
+          updateComments={updateComments}
         />
       ))}
     </div>

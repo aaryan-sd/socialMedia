@@ -7,6 +7,10 @@ import { IoPersonSharp } from "react-icons/io5";
 import { useUser } from "../../Context/UserContext"; 
 import './Navbar.css'
 import useTheme from "../../Context/theme";
+import { IoHome } from "react-icons/io5";
+import { IoPersonCircleSharp } from "react-icons/io5";
+import { IoAddCircle } from "react-icons/io5";
+import { SiContentful } from "react-icons/si";
 
 const Navbar = () => {
   const {themeMode, lightTheme, darkTheme} = useTheme()
@@ -28,6 +32,7 @@ const Navbar = () => {
   }
 
   return (
+    <>
     <div className="navbar">
       <div className="left">
         <Link to="/" style={{ textDecoration: "none", paddingLeft:'30px' }}>
@@ -54,7 +59,7 @@ const Navbar = () => {
                     <button onClick={handleLogout} style={{backgroundColor:'#524f9f', marginRight:'20px'}}>Logout</button>
                 </div>
                 ) : (
-                <div>
+                <div className="loginregister-btn">
                     <Link to="/login">
                     <button style={{backgroundColor:'#524f9f', marginRight: '10px'}}>Login</button>
                     </Link>
@@ -69,6 +74,16 @@ const Navbar = () => {
         </div>
       </div>
     </div>
+
+
+    {/* Mobile-specific Navbar */}
+    <div className="mobile-navbar">
+        <Link to="/"><IoHome style={{fontSize:'2.5rem', color:'#1c1e32'}}/></Link>
+        <Link to="/myprofile/:username"><IoPersonCircleSharp style={{fontSize:'2.5rem', color:'#1c1e32'}}/></Link>
+        <Link to="/createpost"><IoAddCircle style={{fontSize:'2.5rem', color:'#1c1e32'}}/></Link>
+        <Link to="/about"><SiContentful style={{fontSize:'2.5rem', color:'#1c1e32'}}/></Link>
+    </div>
+    </>
   );
 };
 

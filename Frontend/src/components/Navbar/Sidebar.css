@@ -106,3 +106,9 @@ body{
     text-align: start;
     white-space: nowrap;
 }
+
+@media screen and (max-width: 500px) {
+    .sidebar {
+        display: none;
+    }
+}

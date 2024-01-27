@@ -63,3 +63,31 @@ button:hover{
 .user-post-item p {
   margin: 10px 0;
 }
+
+@media (max-width: 735px) {
+  .user-profile-container{
+    width: 1200px;
+  }
+}
+
+@media (max-width: 550px) {
+  .user-profile-container .user-posts{
+    grid-template-columns: repeat(2, 1fr);
+    
+  }
+}
+
+@media (max-width: 500px) {
+  .user-profile-container .user-posts{
+    grid-template-columns: repeat(1, 1fr);
+    
+  }
+  .user-post-item{
+    margin-left: 100px;
+    margin-right: 100px;
+    padding-top: 20px;
+  }
+  .user-profile-container{
+    width: 550px;
+  }
+}

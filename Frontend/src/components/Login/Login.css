@@ -82,3 +82,38 @@
   font-weight: bold;
   cursor: pointer;
 }
+
+@media (max-width: 550px) {
+  .login .card{
+    flex-direction: column;
+  }
+  .login .card .left{
+    width: 300px;
+  }
+  .login .card .right{
+    width: 300px;
+    padding-left: 30px;
+    padding-right: 20px;
+  }
+}
+
+@media (max-width: 950px) {
+  
+  .login .card .left{
+    width: 250px;
+    padding-left: 25px;
+  }
+  .login .card .right{
+    width: 260px;
+    padding-left: 20px;
+  }
+  .login .card .left a{
+    width: 160px;
+  }
+}
+
+@media (max-width: 800px) and (min-width: 550px){
+  .login{
+    width: 900px;
+  }
+}

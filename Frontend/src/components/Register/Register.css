@@ -85,3 +85,38 @@
   font-weight: bold;
   cursor: pointer;
 }
+
+@media (max-width: 550px) {
+  .register .card{
+    flex-direction: column;
+  }
+  .register .card .right{
+    width: 300px;
+  }
+  .register .card .left{
+    width: 300px;
+    padding-left: 30px;
+    padding-right: 20px;
+  }
+}
+
+@media (max-width: 950px) {
+  
+  .register .card .right{
+    width: 250px;
+    padding-left: 25px;
+  }
+  .register .card .left{
+    width: 260px;
+    padding-left: 20px;
+  }
+  .register .card .right a{
+    width: 160px;
+  }
+}
+
+@media (max-width: 800px) and (min-width: 550px){
+  .register{
+    width: 900px;
+  }
+}

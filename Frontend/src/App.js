@@ -9,6 +9,10 @@ import UserProfile from './components/UserProfile/UserProfile';
 import MyProfile from './components/MyProfile/MyProfile';
 import { UserProvider } from './Context/UserContext';
 import { ThemeProvider } from './Context/theme';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import AboutUs from './components/About/AboutUs';
+
 
 const App = () => {
   const [themeMode, setThemeMode] = useState('light');
@@ -28,22 +32,27 @@ const App = () => {
   }, [themeMode])
 
   return (
+    
     <ThemeProvider value={{themeMode, lightTheme, darkTheme}}>
+      
       <UserProvider>
         <Router>
           <div>
             <Routes>
-              <Route path="/" element={<Home />} />
+              <Route path="/" element={<Home />} /> 
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/createpost" element={<CreateNewPost />} />
               <Route path="/userprofile/:username" element={<UserProfile />} />
               <Route path="/myprofile/:username" element={<MyProfile />} />
+              <Route path="/about" element={<AboutUs />} />
             </Routes>
           </div>
         </Router>
       </UserProvider>
+      
     </ThemeProvider>
+    
   );
 }
 

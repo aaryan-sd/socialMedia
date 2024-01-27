@@ -25,11 +25,11 @@ const Sidebar = () => {
               </a>
             </li>
             <li>
-              <a href="#">
+              <a href="/about">
                 <span className="icon">
                 <LuMessageSquare />
                 </span>
-                <span className="title">Messages</span>
+                <span className="title">About Connectify</span>
               </a>
             </li>
             <li>
@@ -48,14 +48,7 @@ const Sidebar = () => {
                 <span className="title">Services</span>
               </a>
             </li>
-            <li>
-              <a href="#">
-                <span className="icon">
-                <PiSignOutFill />
-                </span>
-                <span className="title">Sign Out</span>
-              </a>
-            </li>
+            
           </ul>
         </div>
       </div>

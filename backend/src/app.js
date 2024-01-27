@@ -19,10 +19,11 @@ app.use(cookieParser())
 // routes import 
 import userRouter from './routes/user.route.js'
 import postRouter from './routes/post.route.js'
+import commentRouter from './routes/comment.route.js'
 
 //routes declaration
 app.use("/api/v1/users", userRouter)  // at route- /api/v1/users, control is given to userRouter
-
 app.use("/api/v1/posts", postRouter)
+app.use("/api/v1/comments", commentRouter)
 
 export { app }

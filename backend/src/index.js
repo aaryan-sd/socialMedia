@@ -10,10 +10,12 @@ dotenv.config({
   path: './.env'
 })
 
+const PORT = process.env.PORT || 8000
+
 // connectDB function called, which is written in db/index.js (for mongodb connection)
 connectDB()
 .then(() => {
-  app.listen( 8000, () => {
+  app.listen( PORT, () => {
     console.log("Server is running at PORT 8000");
   })
 })
