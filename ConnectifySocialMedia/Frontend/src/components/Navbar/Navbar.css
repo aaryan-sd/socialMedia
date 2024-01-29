@@ -1,0 +1,171 @@
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    height: 50px;
+    border-bottom: 1px solid themed("border");
+    position: sticky;
+    top: 0;
+    background-color: white;
+    color: black;
+    z-index: 999;
+  }
+  
+.dark .navbar{
+  background-color: #1c1e32;
+  color: white;
+}
+
+  .navbar .left {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+  }
+  
+  .navbar .left span {
+    font-weight: bold;
+    font-size: 20px;
+    color: themed("logo");
+  }
+  
+  .navbar .left .search {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid themed("border");
+    border-radius: 5px;
+    padding: 5px;
+    padding-left: 250px;
+  }
+  
+  .navbar .left .search input {
+    border: none;
+    width: 500px;
+    background-color: transparent;
+    color: themed("textColor");
+  }
+  
+  /* Mobile-specific styles */
+  @media only screen and (max-width: 767px) {
+    .navbar .left .search input {
+      display: none;
+    }
+  
+    
+    .navbar .right-bar .loginregister-btn{
+      display: flex;
+    }
+    .navbar{
+      width: 1080px;
+    }
+  }
+  
+  /* Tablet-specific styles */
+  @media only screen and (min-width: 768px) and (max-width: 1023px) {
+    .navbar .left .search input {
+      width: 200px;
+    }
+    .navbar{
+      width: 1120px;
+    }
+    
+    .navbar .right-bar .loginregister-btn{
+      display: flex;
+    }
+  }
+  
+  .navbar .right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  /* Mobile-specific styles */
+  
+  
+  .navbar .right .user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 500;
+  }
+  
+  /* Tablet-specific styles */
+  @media only screen and (min-width: 768px) and (max-width: 1200px) {
+    .navbar .right-bar .loginregister-btn {
+      display: flex;
+    }
+    .navbar{
+      width: 1120px;
+    }
+    
+  }
+  
+  .navbar .right .user img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  
+  
+  @media screen and (max-width: 500px) {
+    .navbar .left .search{
+      display: none;
+    }
+    .user .right-bar .loginregister-btn{
+      display: flex;
+      
+    }
+    .navbar{
+      width: 750px;
+    }
+    .right-bar p{
+      display: none;
+    }
+    .navbar .left span{
+      font-size: 40px !important;
+    }
+    .navbar{
+      height: 100px;
+    }
+    .loginregister-btn button{
+      font-size: 25px;
+    }
+    .logout-btn {
+      font-size: 25px;
+    }
+    .right svg{
+      display: none;
+    }
+    .toggle-button svg{
+      font-size: 35px;
+    }
+}
+
+.mobile-navbar {
+  display: none; /* Hide mobile navbar by default for all viewports */
+}
+
+@media (max-width: 500px) {
+  .mobile-navbar {
+    display: flex; 
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgb(82, 79, 159); 
+    box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.1); 
+    padding: 20px 0; 
+    justify-content: space-around; 
+    z-index: 1000; 
+    border-radius: 0px;
+  }
+
+  .light .mobile-navbar{
+    background-color: rgb(193 190 255);
+  }
+}

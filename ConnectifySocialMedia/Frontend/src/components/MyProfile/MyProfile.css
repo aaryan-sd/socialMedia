@@ -1,0 +1,109 @@
+.user-profile-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid white;
+  border-radius: 10px;
+  margin-top: 20px;
+  background-color: rgb(193 190 255);
+}
+
+button{
+  background-color: rgb(82, 79, 159);
+}
+button:hover{
+  background-color: rgb(82, 79, 159);
+}
+
+.profile-details {
+  background-color: rgb(193 190 255);
+  padding: 15px;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.profile-details h2 {
+  margin-bottom: 10px;
+}
+
+
+
+.profile-picture {
+  margin-top: 10px;
+}
+
+.profile-picture img {
+  width: 150px; /* Adjust the width as needed */
+  height: auto;
+  border-radius: 50%; /* Make it a circular profile picture */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+}
+
+.user-posts {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.user-post-item {
+  border: 2px solid #7053b6;
+    padding: 10px;
+    text-align: center;
+    background-color: rgb(193 190 255);
+}
+
+.user-post-item img {
+  width: 200px;
+  max-height: 200px;
+  object-fit: contain;
+  border-radius: 0px;
+}
+
+.user-post-item p {
+  margin: 10px 0;
+}
+
+@media (max-width: 735px) {
+  .user-profile-container{
+    width: 1200px;
+  }
+}
+
+@media (max-width: 550px) {
+  .user-profile-container .user-posts{
+    grid-template-columns: repeat(2, 1fr);
+    
+  }
+}
+
+@media (max-width: 500px) {
+  .user-profile-container .user-posts{
+    grid-template-columns: repeat(1, 1fr);
+    
+  }
+  .user-post-item{
+    margin-left: 100px;
+    margin-right: 100px;
+    padding-top: 20px;
+  }
+  .user-profile-container{
+    width: 550px;
+  }
+}
+
+@media (max-width:500px) {
+  .fullname{
+    font-size: 28px;
+  }
+  .username{
+    font-size: 26px;
+  }
+  .user-post-item img{
+    width: 300px;
+    height: 200px;
+  }
+  .profile-picture{
+    padding-left: 10px !important;
+  }
+}
