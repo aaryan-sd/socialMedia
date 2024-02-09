@@ -13,7 +13,11 @@ const commentSchema = new mongoose.Schema({
   post: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Post",
-  }
+  },
+  tweet:{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Tweet"
+  },
 }, { timestamps: true });
 
 commentSchema.plugin(mongooseAggregatePaginate)

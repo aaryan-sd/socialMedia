@@ -4,6 +4,7 @@ import { useUser } from '../../Context/UserContext';
 import './MyProfile.css';
 import { useParams, useNavigate } from 'react-router-dom';
 import { IoChevronBack } from "react-icons/io5";
+import ClipLoader from "react-spinners/ClipLoader"
 
 const MyProfile = () => {
     const { username: routeUsername } = useParams();
@@ -51,20 +52,24 @@ const MyProfile = () => {
             <strong></strong> <img src={userData.profilepicture} alt="Profile" />
           </div>
           <div style={{paddingLeft:'50px', paddingTop:'25px'}}>
-            <div className='fullname'>
+            <div className='fullname' style={{fontSize:'25px'}}>
               {userData.fullname}
             </div>
             <div className='username'>
               {userData.username}
             </div>
             <div style={{display:'flex', paddingTop:'10px'}}>
-              <div style={{ marginRight: '10px' }}>{userData.followersCount} Followers</div>
-              <div style={{ marginLeft: '10px' }}>{userData.followingCount} Following</div>
+              <div style={{ marginRight: '10px' }}> email: {userData.email}</div>
+            
             </div>
           </div>
         </div>
       ) : (
-        <p>Loading your profile...</p>
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <p>
+            <ClipLoader color="rgb(82, 79, 159)" />
+          </p>
+        </div>
       )}
 
             {userPosts.length > 0 ? (

@@ -45,8 +45,8 @@ const AboutUs = () => {
                 <div className="feature">
                     <img src="https://bizflyportal.mediacdn.vn/bizflyportal/1520/2427/2021/09/17/17/18/soc16318523151709.jpg" alt="Share Memories" />
                     <div className="feature-text">
-                        <h2>Share Memories</h2>
-                        <p>Connectify helps you cherish and relive your memories.</p>
+                        <h2>Public Forum</h2>
+                        <p>Connectify helps you share your thoughts and discuss with people around.</p>
                     </div>
                 </div>
             </div>

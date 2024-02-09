@@ -1,0 +1,26 @@
+.tweets-container {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    width: 650px;
+    margin-top: 70px;
+    
+  }
+  
+  @media screen and (max-width: 500px) {
+    .tweets-container {
+        margin-left: -320px;
+        margin-right: 10px;
+        width: 700px;
+    }
+  }
+  
+  @media screen and (max-width: 1000px) {
+    .tweets-container { 
+        margin-right: 10px;
+    }
+  }
+  
+
+  
+  

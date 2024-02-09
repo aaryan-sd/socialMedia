@@ -107,6 +107,11 @@ body{
     white-space: nowrap;
 }
 
+.sidebar ul li .active{
+    border-left: 5px solid rgb(82, 79, 159);
+    border-radius: 0px;
+}
+
 @media screen and (max-width: 500px) {
     .sidebar {
         display: none;

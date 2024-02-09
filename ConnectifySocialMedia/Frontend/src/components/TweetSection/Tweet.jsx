@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./Post.css";
+import "./Tweet.css";
 import { Link } from "react-router-dom";
 import { MdInsertComment } from "react-icons/md";
 import { PiShareFatFill } from "react-icons/pi";
@@ -12,14 +12,17 @@ import 'react-toastify/dist/ReactToastify.css';
 import { FaLocationArrow } from "react-icons/fa6";
 import { FaRegComment } from "react-icons/fa6";
 import { MdOutlineDelete } from "react-icons/md";
-import ClipLoader from "react-spinners/ClipLoader.js"
-import { IoIosSend } from "react-icons/io";
+import ClipLoader from "react-spinners/ClipLoader.js";
+import { BiDownvote, BiUpvote } from "react-icons/bi";
+import { BiSolidUpvote } from "react-icons/bi";
+import { BiSolidDownvote } from "react-icons/bi";
+import { IoSendSharp } from "react-icons/io5";
+import { BiCommentDetail } from "react-icons/bi";
 
-const Post = ({
-  postid,
+const Tweet = ({
+  tweetid,
   username,
-  images,
-  caption,
+  tweet,
   likes,
   commentcount,
   createdAt,
@@ -35,6 +38,7 @@ const Post = ({
   console.log("user:",user)
   console.log("comments:", comments)
   const [loading, setLoading] = useState(true); 
+  const [isDownvoted, setIsDownvoted] = useState(false);
 
   useEffect(() => {
     setLoading(false); 
@@ -49,7 +53,7 @@ const Post = ({
       }
 
       const response = await axios.post(
-        `http://localhost:8000/api/v1/posts/${postid}`
+        `http://localhost:8000/api/v1/tweets/${tweetid}`
       );
       console.log("Response:", response);
 
@@ -84,15 +88,15 @@ const Post = ({
         
         // Now you can use 'currentUserId' in your axios post request
         const response = await axios.post(
-          `http://localhost:8000/api/v1/comments/post-comment`,
+          `http://localhost:8000/api/v1/comments/reply-tweet`,
           {
             commenter: user._id, // Use currentUserId as commenter
             comment: newComment,
-            postId: postid,
+            tweetId: tweetid,
           }
         );
         console.log("response after commenting: ",response)
-        updateComments(postid, response.data.data.savedComment);
+        updateComments(tweetid, response.data.data.savedComment);
       
         // Reset the new comment input field
         setNewComment('');
@@ -101,25 +105,8 @@ const Post = ({
         console.error('User is not logged in');
       }
     } catch (error) {
-      console.error("Error posting comment:", error);
+      console.error("Error commenting to tweet:", error);
     }
-  };
-
-  const handleShare = () => {
-    if (!images) {
-      toast.error('Image URL not found');
-      return;
-    }
-  
-
-    navigator.clipboard.writeText(images)
-      .then(() => {
-        toast.success('Post Link copied to clipboard');
-      })
-      .catch(error => {
-        toast.error('Failed to copy link to clipboard');
-        console.error('Error copying to clipboard:', error);
-      });
   };
 
   const handleDeleteComment = async (commentId) => {
@@ -132,12 +119,12 @@ const Post = ({
         // Filter out the deleted comment from the state
         const updatedComments = comments.filter(comment => comment._id !== commentId);
         updateComments(updatedComments);
-        toast.success('Comment deleted successfully');
+        toast.success('Comment deleted successfully for tweet');
       } else {
-        toast.error('Failed to delete comment');
+        toast.error('Failed to delete comment of tweet');
       }
     } catch (error) {
-      console.error('Error deleting comment:', error);
+      console.error('Error deleting comment of tweet:', error);
       toast.error('Failed to delete comment');
     }
   };
@@ -163,23 +150,26 @@ const Post = ({
     }
   };
   
+  const handleToggle = () => {
+    setIsDownvoted(prevState => !prevState);
+  };
 
   
   return (
-    <div className="post">
+    <div className="tweet">
+
       {loading ? ( 
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <p>
-          Loading...
-        </p>
-      </div>
+        <div className="spinner-container">
+          <ClipLoader color="rgb(82, 79, 159)" />
+        </div>
       ) : (
-      <div className="container">
+      <div className="tweet-container">
+            
         <div className="user">
           <div className="userInfo">
             <Link
-                to={`/userprofile/${username}`}
-                style={{ textDecoration: "none", color: "inherit" }}
+                  to={`/userprofile/${username}`}
+                  style={{ textDecoration: "none", color: "inherit" }}
             >
             <img
               src={profilepicture}
@@ -198,55 +188,49 @@ const Post = ({
             </div>
           </div>
         </div>
-        <div className="content">
-          <img
-            src={images}
-            alt=""
-            style={{ width: "40rem", height: "25rem", borderRadius: "10px" }}
-          />
-          <p>{caption}</p>
+        <div className="tweet-content">
+          <p>{tweet}</p>
           <div className="info">
             <div className="item">
-              {likeCount}
+            {likeCount}
               <button
                 onClick={handleLike}
                 style={{
                   background: "none",
                   border: "none",
                   cursor: "pointer",
-                  color: "red",
-                  paddingTop: "20px",
+                  color: "rgb(82, 79, 159)",
+                  paddingTop: "15px",
                   paddingLeft: "2px",
                 }}
               >
-                {liked ? <GoHeartFill /> : <GoHeart />}
+                {liked ? <BiSolidUpvote /> : <BiUpvote />}
               </button>
+              
               <ToastContainer />
             </div>
             <div className="item" onClick={toggleComments}>
-              <FaRegComment />
+            <BiCommentDetail />
               {commentcount}
             </div>
-            <div className="item" style={{paddingLeft:'10px'}} onClick={handleShare}>
-            <IoIosSend /> <div className="sharebtn" style={{fontSize:'1rem'}}>Share</div>
-            </div>
+            
           </div>
           {showComments && (
             <div className="comments-container">
-              <div className="post-comment-input-section">
+              <div className="tweet-comment-input-section">
                 <input
                   type="text"
                   value={newComment}
                   onChange={handleCommentChange}
-                  placeholder="Write a comment..."
+                  placeholder="Reply..."
                 />
-                <button onClick={handleSubmitComment}>Send</button>
+                <button onClick={handleSubmitComment}><IoSendSharp /></button>
                 <ToastContainer />
               </div>
               <h3 style={{paddingTop:'10px', paddingBottom:'10px'}}></h3>
               <ul className="comments-list">
                 {comments.map((comment) => (
-                  <li key={comment._id} className="comment-item">
+                  <li key={comment._id} className="tweet-comment-item">
                         <img
                           src={comment.commenterData?.profilepicture}
                           alt="Profile"
@@ -259,7 +243,7 @@ const Post = ({
                         </div>
                         <div>
                           {user && (
-                            <button onClick={() => handleDeleteComment(comment._id)}><MdOutlineDelete /></button>
+                            <button onClick={() => handleDeleteComment(comment._id)}><MdOutlineDelete style={{background:'none'}} /></button>
                           )}
                         </div>
                         </div>
@@ -270,9 +254,11 @@ const Post = ({
           )}
         </div>
       </div>
+    
       )}
     </div>
+    
   );
 };
 
-export default Post;
+export default Tweet;

@@ -12,18 +12,22 @@ import { ThemeProvider } from './Context/theme';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AboutUs from './components/About/AboutUs';
+import Sidebar from './components/Navbar/Sidebar';
+import Forum from './components/Forum/Forum';
 
 
 const App = () => {
   const [themeMode, setThemeMode] = useState('light');
 
   const darkTheme = () => {
-    setThemeMode('dark')
-  }
-
+    setThemeMode('dark');
+    localStorage.setItem('themeMode', 'dark');
+  };
+  
   const lightTheme = () => {
-    setThemeMode('light')
-  }
+    setThemeMode('light');
+    localStorage.setItem('themeMode', 'light');
+  };
 
   useEffect(()=> {
     document.querySelector('html').classList.remove('dark','light')
@@ -38,7 +42,9 @@ const App = () => {
       <UserProvider>
         <Router>
           <div>
+          
             <Routes>
+            
               <Route path="/" element={<Home />} /> 
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
@@ -46,6 +52,7 @@ const App = () => {
               <Route path="/userprofile/:username" element={<UserProfile />} />
               <Route path="/myprofile/:username" element={<MyProfile />} />
               <Route path="/about" element={<AboutUs />} />
+              <Route path="/forum" element={<Forum />} />
             </Routes>
           </div>
         </Router>

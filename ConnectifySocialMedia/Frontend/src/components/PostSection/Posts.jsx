@@ -58,6 +58,7 @@ const Posts = () => {
 
   return (
     <div className="posts-container">
+      <div className='feed-title'>Feed</div>
       {posts.map((post) => (
         <Post
           key={post._id}

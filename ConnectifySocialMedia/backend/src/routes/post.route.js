@@ -16,7 +16,7 @@ router.route("/create-post").post(
     createPost)
 
 router.route("/all-posts").get(getAllPosts)
-router.route("/p/:username").get(verifyJWT, getPostsOfUser)
+router.route("/p/:username").get(getPostsOfUser)
 router.route("/:username/:postId").delete(verifyJWT, deletePost)
 router.route("/:postId").post(verifyJWT, likePost);
 

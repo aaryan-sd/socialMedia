@@ -11,6 +11,8 @@ import { IoHome } from "react-icons/io5";
 import { IoPersonCircleSharp } from "react-icons/io5";
 import { IoAddCircle } from "react-icons/io5";
 import { SiContentful } from "react-icons/si";
+import { RiDiscussFill } from "react-icons/ri";
+import { MdExplore } from "react-icons/md";
 
 const Navbar = () => {
   const {themeMode, lightTheme, darkTheme} = useTheme()
@@ -35,7 +37,7 @@ const Navbar = () => {
     <>
     <div className="navbar">
       <div className="left">
-        <Link to="/" style={{ textDecoration: "none", paddingLeft:'30px' }}>
+        <Link to="/" style={{ textDecoration: "none", paddingLeft:'30px', color:'rgb(82, 79, 159)' }}>
           <span>Connectify.</span>
         </Link>
 
@@ -43,13 +45,10 @@ const Navbar = () => {
           {themeMode === 'dark' ? <IoSunnyOutline /> : <MdDarkMode />}
         </div>
 
-        <div className="search">
-          <FaSearch />
-          <input type="text" placeholder="Search..." />
-        </div>
+        
       </div>
       <div className="right">
-        <IoPersonSharp />
+        
         <div className="user">
 
             <div className="right-bar">
@@ -78,10 +77,11 @@ const Navbar = () => {
 
     {/* Mobile-specific Navbar */}
     <div className="mobile-navbar">
-        <Link to="/"><IoHome style={{fontSize:'2.5rem', color:'#1c1e32'}}/></Link>
-        <Link to="/myprofile/:username"><IoPersonCircleSharp style={{fontSize:'2.5rem', color:'#1c1e32'}}/></Link>
-        <Link to="/createpost"><IoAddCircle style={{fontSize:'2.5rem', color:'#1c1e32'}}/></Link>
-        <Link to="/about"><SiContentful style={{fontSize:'2.5rem', color:'#1c1e32'}}/></Link>
+        <Link to="/"><MdExplore style={{fontSize:'3rem', color:'#1c1e32'}}/></Link>
+        <Link to="/myprofile/:username"><IoPersonCircleSharp style={{fontSize:'3rem', color:'#1c1e32'}}/></Link>
+        <Link to="/createpost"><IoAddCircle style={{fontSize:'3.5rem', color:'#1c1e32'}}/></Link>
+        <Link to="/forum"><RiDiscussFill style={{fontSize:'3rem', color:'#1c1e32'}}/></Link>
+        <Link to="/about"><SiContentful style={{fontSize:'3rem', color:'#1c1e32'}}/></Link>
     </div>
     </>
   );

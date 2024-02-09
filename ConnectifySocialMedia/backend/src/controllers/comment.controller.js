@@ -4,7 +4,7 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import { ApiError } from "../utils/ApiError.js";
 import { Post } from "../models/post.model.js";
 import {User} from "../models/user.model.js"
-
+import { Tweet } from "../models/tweet.model.js";
 
 const fetchUserDataById = async (userId) => {
     try {
@@ -77,6 +77,52 @@ const postComment = asyncHandler(async(req,res) => {
     )
 })
 
+const replyTweet = asyncHandler(async(req,res) => {
+    const { commenter, comment, tweetId } = req.body;
+
+    // Create a new comment
+    const newComment = new Comment({
+        commenter,
+        comment,
+        tweet: tweetId
+    });
+
+    // Save the new comment to the database
+    const savedComment = await newComment.save();
+    console.log(savedComment)
+    if(!savedComment){
+        throw new ApiError(400, "Something went wrong while commenting")
+    }
+
+    // Fetch the user data of the commenter
+    const userData = await fetchUserDataById(commenter);
+        
+    if (!userData) {
+        throw new ApiError(400, "Failed to fetch commenter's data");
+    }
+        
+    // Update the corresponding post document's comments array
+    const updatedTweet = await Tweet.findByIdAndUpdate(
+        tweetId,
+        { $push: { comments: savedComment._id } }, // Add the comment's ObjectId to the comments array
+        { new: true }
+    );
+
+    if (!updatedTweet) {
+        throw new ApiError(400, "Failed to update tweet with comment");
+    }
+
+    res.status(201)
+    .json(
+        new ApiResponse(200, { 
+            savedComment: {
+                ...savedComment.toObject(), // Convert Mongoose document to plain JavaScript object
+                commenterData: userData
+            }
+        }, "Commented on tweet successfully")
+    )
+})
+
 const getCommentsForPost = asyncHandler(async (req, res) => {
     const postId = req.params.postId;
     console.log("postId: ", postId)
@@ -101,6 +147,30 @@ const getCommentsForPost = asyncHandler(async (req, res) => {
     )
 });
 
+const getCommentsForTweet = asyncHandler(async (req, res) => {
+    const tweetId = req.params.tweetId;
+    console.log("tweetId: ", tweetId)
+    const comments = await Comment.find({ tweet: tweetId });
+    console.log("comments: ",comments)
+    if(!comments){
+        throw new ApiError(400, "something went wrong while getting comments for tweet")
+    }
+
+    // Fetch commenter data for each comment
+    const commentsWithUserData = await Promise.all(comments.map(async (comment) => {
+        const commenterData = await fetchUserDataById(comment.commenter);
+        return {
+            ...comment.toObject(),
+            commenterData
+        };
+    }));
+  
+    res.status(200)
+    .json(
+        new ApiResponse(200, commentsWithUserData, "all comments for tweet fetched successfully")
+    )
+});
+
 
 
 const deleteCommentForPost = asyncHandler(async(req,res) => {
@@ -119,8 +189,27 @@ const deleteCommentForPost = asyncHandler(async(req,res) => {
     )
 })
 
+const deleteCommentForTweet = asyncHandler(async(req,res) => {
+    const commentId = req.params.commentId;
+
+    // Find the comment by ID and delete it
+    const deletedComment = await Comment.findByIdAndDelete(commentId);
+  
+    if (!deletedComment) {
+      throw new ApiError(404, "Comment not found")
+    }
+  
+    res.status(200)
+    .json(
+        new ApiResponse(200, deletedComment, "Comment deleted successfully")
+    )
+})
+
 export {
     postComment,
     getCommentsForPost,
-    deleteCommentForPost
+    deleteCommentForPost,
+    replyTweet,
+    getCommentsForTweet,
+    deleteCommentForTweet
 }
